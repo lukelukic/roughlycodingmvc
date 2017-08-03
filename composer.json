@@ -1,0 +1,14 @@
+{
+    "name": "roughlycoding/rc",
+    "description": "lightweight mvc",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lukelukic",
+            "email": "luka.lukic.28.14@ict.edu.rs"
+        }
+    ],
+    "require": {
+        "components/bootstrap": "^3.3"
+    }
+}
