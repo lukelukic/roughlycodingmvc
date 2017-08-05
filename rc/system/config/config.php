@@ -13,10 +13,10 @@ $config['default_controller'] = "wellcome";
     Uputstvo upotrebe svakog nalazi se u njegovom fajlu
     url se koristi u konfiguraciji, ne brisati ga
 */
-$helpers = array('url','session');
+$helpers = array('session');
 
 ini_set('display_errors', 1);
-
+require_once __DIR__ . '/../Helpers/url.php';
 /*---------------------Pozivanje sistemskih funkcija --------------------------------------*/
 
 /*---------------------Funkcija za automatsko ucitavanje helpera-----------------------------*/
@@ -29,7 +29,7 @@ function loadHelpers($arr)
         }
     }
 }
-loadHelpers($helpers);
+
 
 /*-------------------- Funkcija registrovanje autoload funkcije -------------------*/
 spl_autoload_register('rc_autoloader');
@@ -46,3 +46,4 @@ function rc_autoloader($class)
       }
   }
 }
+loadHelpers($helpers);

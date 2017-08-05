@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "components/bootstrap": "^3.3"
+        "components/bootstrap": "^3.3",
+        "filp/whoops": "^2.1"
     }
 }
