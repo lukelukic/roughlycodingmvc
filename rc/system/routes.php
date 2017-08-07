@@ -43,7 +43,7 @@ if (strpos($url, "index.php")!== false) {
 $url = trim($url, '/');
 $controller_array = explode("/", $url);
 
-$controller = isset($controller_array[0]) ? $controller_array[0] : $config['default_controller'];
+$controller = $controller_array[0] ? $controller_array[0] : $config['default_controller'];
 $method = isset($controller_array[1]) ? $controller_array[1] : "index";
 $params = array();
 
