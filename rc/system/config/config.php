@@ -2,7 +2,7 @@
 /*---------BASIC CONFIGURATIONS---------*/
 
 //Error reporting type
-$config['error_reporting'] = E_ALL;
+error_reporting(E_ALL);
 
 //Default controller
 $config['default_controller'] = "wellcome";
@@ -13,9 +13,9 @@ $config['default_controller'] = "wellcome";
     Uputstvo upotrebe svakog nalazi se u njegovom fajlu
     url se koristi u konfiguraciji, ne brisati ga
 */
-$helpers = array('session');
+$helpers = array('session','whoops','monolog');
 
-ini_set('display_errors', 1);
+
 require_once __DIR__ . '/../Helpers/url.php';
 /*---------------------Pozivanje sistemskih funkcija --------------------------------------*/
 

@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL);
 /*----------------Ucitavanje konfiguracije ----------*/
 require 'config/config.php';
 
