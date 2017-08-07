@@ -5,13 +5,14 @@ require 'config/config.php';
 /*---------------Poziv kontrolera iz foldera gde se kontroleri nalaze------------------*/
 use rc\Controllers;
 
-function callController($controller, $method)
+function callController($controller, $method, $params)
 {
     $controller = "rc\app\Controllers\\" . ucfirst(strtolower($controller));
     if (class_exists($controller)) {
-        $controller = new $controller();
         if (method_exists($controller, $method)) {
-            $controller->$method();
+            //Reflection method - objekat pomocu kog moze da se pozove metod sa nizom argumenata, gde ce svaki element niza biti posebna promenljiva
+            $reflectionMethod = new ReflectionMethod($controller, $method);
+            $reflectionMethod->invokeArgs(new $controller(), $params);
         } else {
             header("HTTP/1.1 404 Not Found");
             include("Errors/404_Method.php");
@@ -27,15 +28,35 @@ function callController($controller, $method)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php/$1 [L]
 */
-$URL = $_SERVER['REQUEST_URI'];
-$urlVars = explode("/", $URL);
 
-if ($urlVars[2] === INDEX) {
-    $controller = isset($urlVars[3]) && $urlVars[3] ? explode('?', $urlVars[3])[0] : $config['default_controller'];
-    $method = isset($urlVars[4]) && $urlVars[4] ? explode('?', $urlVars[4])[0] : "index";
-} else {
-    $controller = isset($urlVars[2]) && $urlVars[2] ? explode('?', $urlVars[2])[0] : $config['default_controller'];
-    $method = isset($urlVars[3]) && $urlVars[3] ? explode('?', $urlVars[3])[0] : "index";
+$url = $_SERVER['REQUEST_URI'];
+//Ako root sajta nije PUBLIC_HTML, cupanje kontrolera, modela i argumenata
+if ($config['root']) {
+    $root = '/' . $config['root'] . '/';
+    //Izdvajanje root foldera iz REQUEST_URI-a
+    $url = str_replace($root, "", $url);
+}
+//Ako se ide preko indexa, odvajanje indexa
+if (strpos($url, "index.php")!== false) {
+    $url = explode("index.php", $url)[1];
+}
+$url = trim($url, '/');
+$controller_array = explode("/", $url);
+
+$controller = isset($controller_array[0]) ? $controller_array[0] : $config['default_controller'];
+$method = isset($controller_array[1]) ? $controller_array[1] : "index";
+$params = array();
+
+//Za slucaj da su get-om poslati parametri, odvajanje kontrolera i metoda
+$controller = explode("?",$controller)[0];
+$method = explode("?",$method)[0];
+
+//Dohvatanje parametara
+if(count($controller_array)>2) {
+    $params = array();
+    for($i=2,$j=0; $i<count($controller_array); $i++) {
+      $params['param' . $j++] = $controller_array[$i];
+    }
 }
 
-callController($controller, $method);
+callController($controller, $method, $params);
