@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /*----------------Ucitavanje konfiguracije ----------*/
 require 'config/config.php';
 
@@ -17,6 +18,9 @@ function callController($controller, $method, $params)
             header("HTTP/1.1 404 Not Found");
             include("Errors/404_Method.php");
         }
+    } else {
+      header("HTTP/1.1 404 Not Found");
+      include("Errors/404_Controller.php");
     }
 }
 
