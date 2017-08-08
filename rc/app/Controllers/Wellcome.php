@@ -7,7 +7,5 @@ class Wellcome extends Controller
     public function index()
     {
         $this->loadView('wellcome');
-
     }
-
 }

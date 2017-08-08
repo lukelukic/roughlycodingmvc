@@ -5,14 +5,14 @@
 /*----URL that represents link to your website's root folder
 Example : http://somewebsite.com/
 Or localy : http://localhost/somedirectory -----*/
-$config['base_url'] = 'http://localhost/mvc/';
+$config['base_url'] = 'rewrite_this';
 
 //Index tranica, ako se koristi redirekcija .httaccess-om, obrisati je
 $config['index'] = "index.php";
 
 //Root folder domena, ostaviti prazno ako je PUBLIC_HTML, ako nije, uneti punu putanju do foldera projekta
 //Primer za localhost : folder se nalazi u var/www/html/projekat; folder projekta je projekat, pa se upisuje $config['root'] = 'projekat'
-$config['root'] = "mvc";
+$config['root'] = "";
 
 
 /*-------------Funkcije za laksu manipulaciju url-om  NE MENJATI ----------*/

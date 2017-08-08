@@ -58,7 +58,6 @@ function sessKill($key = null)
 //Obezbedjivanje da flash promenljiva postoji samo na jednoj stranici
 if (isset($_SESSION['removeFlash'])) {
     session_unset($_SESSION['flash']);
-    session_unset($_SESSION['removeFlash']);
 } else {
     if (isset($_SESSION['flash'])) {
         $_SESSION['removeFlash'] = true;

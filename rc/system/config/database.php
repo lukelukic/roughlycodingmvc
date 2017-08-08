@@ -1,7 +1,11 @@
 <?php
 
-/*-------DATABASE PARAMETERS CONFIGURATION ------*/
-$db['host'] = 'localhost';
-$db['user'] = 'root';
-$db['password'] = 'root';
-$db['database'] = "komlenuci";
+/*-------MEDOO DATABASE PARAMETERS CONFIGURATION ------*/
+$dbConfig = [
+	// required
+	'database_type' => 'mysql',
+	'database_name' => 'database',
+	'server' => 'server',
+	'username' => 'username',
+	'password' => 'password',
+];
