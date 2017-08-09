@@ -15,7 +15,7 @@
   	    <h1>Oops!</h1>
   	    <h2>404 Controller Not Found</h2>
   	    <div class="error-details">
-  		Sorry, an error has occured, requested controller not found!<br>
+  		Sorry, an error has occured, class <strong><i><?php echo isset($controller) ? $controller : "" ?></i></strong> not found!<br>
   	    </div>
   	    <div class="error-actions">
   		<a href="<?php echo baseUrl(); ?>" class="btn btn-primary">

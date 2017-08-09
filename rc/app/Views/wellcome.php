@@ -16,14 +16,11 @@
   		You're now using Luke's lightweight mvc<br>
   	    </div>
   	    <div class="error-actions">
-  		<a href="https://github.com/lukelukic/mvc" target="_blank" class="btn btn-primary">
+  		<a href="https://github.com/lukelukic/roughlycodingmvc" target="_blank" class="btn btn-primary">
   		    View on github <i class='fa fa-github'></i> </a>
   	    </div>
   	</div>
       </div>
-      <?php if(tmpData('neca')): ?>
-        <?php echo tmpData('neca'); ?>
-      <?php endif; ?>
   </div>
 </body>
 </html>

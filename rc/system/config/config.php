@@ -13,7 +13,7 @@ $config['default_controller'] = "wellcome";
     Uputstvo upotrebe svakog nalazi se u njegovom fajlu
     url se koristi u konfiguraciji, ne brisati ga
 */
-$helpers = array('whoops','session','monolog','request');
+$helpers = array();
 
 
 require_once __DIR__ . '/../Helpers/url.php';

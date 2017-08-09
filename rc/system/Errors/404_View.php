@@ -12,14 +12,9 @@
   <div class="container">
       <div class="row">
       <div class="error-template">
-  	    <h1>Oops!</h1>
-  	    <h2>404 Method Not Found</h2>
+  	    <h2>View Not Found</h2>
   	    <div class="error-details">
-  		Sorry, an error has occured, requested method <strong><i><?php echo isset($method) ? $method : "" ?></i></strong> not found!<br>
-  	    </div>
-  	    <div class="error-actions">
-  		<a href="<?php echo baseUrl(); ?>" class="btn btn-primary">
-  		    Take Me Home <i class='fa fa-home'></i> </a>
+  		Sorry, an error has occured, requested view <strong><i><?php echo isset($view) ? $view : ""; ?></i></strong> not found!<br>
   	    </div>
   	</div>
       </div>

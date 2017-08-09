@@ -65,7 +65,7 @@ abstract class MainController
             }
             require_once $file;
         } else {
-            echo "Requested view doesent exist.";
+            require_once 'Errors/404_View.php';
         }
     }
 }
