@@ -5,14 +5,14 @@
 /*----URL that represents link to your website's root folder
 Example : http://somewebsite.com/
 Or localy : http://localhost/somedirectory -----*/
-$config['base_url'] = 'http://rcframework.rs/';
+$config['base_url'] = 'http://localhost/proba/';
 
 //Index tranica, ako se koristi redirekcija .httaccess-om, obrisati je
 $config['index'] = "index.php";
 
 //Root folder domena, ostaviti prazno ako je PUBLIC_HTML, ako nije, uneti punu putanju do foldera projekta
 //Primer za localhost : folder se nalazi u var/www/html/projekat; folder projekta je projekat, pa se upisuje $config['root'] = 'projekat'
-$config['root'] = "";
+$config['root'] = "proba";
 
 
 /*-------------Funkcije za laksu manipulaciju url-om  NE MENJATI ----------*/
@@ -45,5 +45,5 @@ function redirect($path)
 //Funkcija koja vraca root direktorijum projekta
 function rootDir()
 {
-    return $_SERVER['DOCUMENT_ROOT'] . "/" . ROOT;
+    return $_SERVER['DOCUMENT_ROOT'] . "/" . ROOT . "/";
 }
