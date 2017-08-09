@@ -5,7 +5,7 @@
 /*----URL that represents link to your website's root folder
 Example : http://somewebsite.com/
 Or localy : http://localhost/somedirectory -----*/
-$config['base_url'] = 'rewrite_this';
+$config['base_url'] = 'http://rcframework.rs/';
 
 //Index tranica, ako se koristi redirekcija .httaccess-om, obrisati je
 $config['index'] = "index.php";
@@ -45,5 +45,5 @@ function redirect($path)
 //Funkcija koja vraca root direktorijum projekta
 function rootDir()
 {
-    return $_SERVER['DOCUMENT_ROOT'] . "/" . ROOT . "/";
+    return $_SERVER['DOCUMENT_ROOT'] . "/" . ROOT;
 }
