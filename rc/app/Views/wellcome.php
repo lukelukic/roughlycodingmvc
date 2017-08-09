@@ -13,7 +13,7 @@
       <div class="error-template">
   	    <h1>Wellcome!</h1>
   	    <div class="error-details">
-  		You're now using Luke's lightweight mvc<br>
+  		You're now using roughlyCoding lightweight PHP framework.<br>
   	    </div>
   	    <div class="error-actions">
   		<a href="https://github.com/lukelukic/roughlycodingmvc" target="_blank" class="btn btn-primary">
