@@ -1,5 +1,5 @@
 <?php
-namespace Valitron;
+namespace rc\system\Libraries;
 
 /**
  * Validation Class
