@@ -70,8 +70,38 @@ class Validator
     /**
      * @var array
      */
-    protected static $_ruleMessages = array();
-
+    protected static $_ruleMessages = array(
+        'required'      => "is required",
+        'equals'        => "must be the same as '%s'",
+        'different'     => "must be different than '%s'",
+        'accepted'      => "must be accepted",
+        'numeric'       => "must be numeric",
+        'integer'       => "must be an integer (0-9)",
+        'length'        => "must be %d characters long",
+        'min'           => "must be at least %s",
+        'max'           => "must be no more than %s",
+        'in'            => "contains invalid value",
+        'notIn'         => "contains invalid value",
+        'ip'            => "is not a valid IP address",
+        'email'         => "is not a valid email address",
+        'url'           => "is not a valid URL",
+        'urlActive'     => "must be an active domain",
+        'alpha'         => "must contain only letters a-z",
+        'alphaNum'      => "must contain only letters a-z and/or numbers 0-9",
+        'slug'          => "must contain only letters a-z, numbers 0-9, dashes and underscores",
+        'regex'         => "contains invalid characters",
+        'date'          => "is not a valid date",
+        'dateFormat'    => "must be date with format '%s'",
+        'dateBefore'    => "must be date before '%s'",
+        'dateAfter'     => "must be date after '%s'",
+        'contains'      => "must contain %s",
+        'boolean'       => "must be a boolean",
+        'lengthBetween' => "must be between %d and %d characters",
+        'creditCard'    => "must be a valid credit card number",
+        'lengthMin'     => "must be at least %d characters long",
+        'lengthMax'     => "must not exceed %d characters",
+        'instanceOf'    => "must be an instance of '%s'"
+    );
     /**
      * @var array
      */
@@ -86,7 +116,7 @@ class Validator
      * @param  string                    $langDir
      * @throws \InvalidArgumentException
      */
-    public function __construct($data = array(), $fields = array(), $lang = null, $langDir = null)
+    public function initialize($data = array(), $fields = array(), $lang = null, $langDir = null)
     {
         // Allows filtering of used input fields against optional second array of field names allowed
         // This is useful for limiting raw $_POST or $_GET data to only known fields
@@ -99,13 +129,13 @@ class Validator
         $langDir = $langDir ?: static::langDir();
 
         // Load language file in directory
-        $langFile = rtrim($langDir, '/') . '/' . $lang . '.php';
-        if (stream_resolve_include_path($langFile) ) {
-            $langMessages = include $langFile;
-            static::$_ruleMessages = array_merge(static::$_ruleMessages, $langMessages);
-        } else {
-            throw new \InvalidArgumentException("Fail to load language file '" . $langFile . "'");
-        }
+        // $langFile = rtrim($langDir, '/') . '/' . $lang . '.php';
+        // if (stream_resolve_include_path($langFile) ) {
+        //     $langMessages = include $langFile;
+        //     static::$_ruleMessages = array_merge(static::$_ruleMessages, $langMessages);
+        // } else {
+        //     throw new \InvalidArgumentException("Fail to load language file '" . $langFile . "'");
+        // }
     }
 
     /**
@@ -135,7 +165,7 @@ class Validator
             static::$_langDir = $dir;
         }
 
-        return static::$_langDir ?: dirname(dirname(__DIR__)) . '/lang';
+        return static::$_langDir ?: rootDir() . 'rc/system/Libraries/lang';
     }
 
     /**
