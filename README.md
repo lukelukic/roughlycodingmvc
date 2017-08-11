@@ -1,2 +1,0 @@
-# roughlycodingmvc
-lightweight php mvc
