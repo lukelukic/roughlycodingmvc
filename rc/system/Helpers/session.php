@@ -67,7 +67,7 @@ if (isset($_SESSION['removeFlash'])) {
 //Funkcija za cuvanje podataka koji traju samo jednu stranicu, nakon redirekcije ili ponovnog ucitavanja stranice, podaci nestaju
 //Ukoliko se samo dohvataju podaci, prosledjuje se kljuc
 //Ukoliko se podaci i postavljaju i dohvataju prosledjuju se i kljuc i vrednost
-function tmpData($key, $value = null)
+function flash($key, $value = null)
 {
     if ($value) {
         $_SESSION['flash'][$key]  = $value;

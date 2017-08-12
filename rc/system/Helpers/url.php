@@ -27,7 +27,7 @@ function baseUrl()
 
 //Funkcija za dohvatanje adrese trenutne strane
 function currentUrl() {
-   return $_SERVER['PHP_SELF'];
+   return $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
 }
 
 //Funkcija za pristup prethodnoj strani, ukoliko je nema daje false
@@ -39,7 +39,7 @@ function previousUrl()
 //Redirekcija na zeljeni kontroler
 function redirect($path)
 {
-    header("Location: " . baseUrl() . INDEX ."/"  . $path);
+    header("Location: " . $path);
 }
 
 //Funkcija koja vraca root direktorijum projekta
