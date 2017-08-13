@@ -11,9 +11,8 @@ use rc\system\Libraries\Database;
 
 interface IDbItem
 {
-    public function insertIntoDb();
-    public function deleteFromDb();
-    public function updateInDb();
-    public function selectOne();
-    public function selectQuery($selectQuery);
+    public function insertIntoDb($db);
+    public function deleteFromDb($db);
+    public function updateInDb($db);
+    public function selectOne($db);
 }
