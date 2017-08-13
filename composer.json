@@ -11,6 +11,7 @@
     "require": {
         "components/bootstrap": "^3.3",
         "filp/whoops": "^2.1",
-        "monolog/monolog": "*"
+        "monolog/monolog": "*",
+        "components/font-awesome": "^4.7"
     }
 }
