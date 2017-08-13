@@ -18,7 +18,7 @@
   	    <div class="error-actions">
   		<a href="https://github.com/lukelukic/roughlycodingmvc" target="_blank" class="btn btn-primary">
   		    View on github <i class='fa fa-github'></i> </a>
-          <a href="#"  class="btn btn-danger">
+          <a href="https://github.com/lukelukic/roughlycodingmvc/wiki"  class="btn btn-danger">
             User Guide <i class='fa fa-github'></i> </a>
   	    </div>
   	</div>
