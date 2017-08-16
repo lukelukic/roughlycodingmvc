@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../config/config.php'; ?>
+<?php require_once __DIR__ . '/../Setup/config.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<?php echo baseUrl();?>rc/system/Style/style.css">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/bootstrap/css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/font-awesome/css/font-awesome.css" media="screen">
-</link>
+<link rel="shortcut icon" href="<?php echo baseUrl(); ?>rc/system/favicon.png" />
 </head>
 <body>
   <div class="container">

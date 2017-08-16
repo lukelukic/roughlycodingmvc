@@ -1,4 +1,5 @@
 <?php
+use rc\system\Exceptions\SetupException;
 
 /*
  whoops is an error handler framework for PHP. Out-of-the-box,
@@ -9,8 +10,16 @@
 
 */
 
-
-
-$whoops = new Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
+$class = "Whoops\Run";
+try {
+    if (class_exists($class)) {
+        $whoops = new $class;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
+    } else {
+        throw new SetupException("Whoops not found in Vendor folder! Run composer update within root folder.");
+    }
+} catch (SetupException $e) {
+    $message =  $e->getMessage();
+    $e->error();
+}

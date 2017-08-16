@@ -2,27 +2,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>404</title>
+  <title>Exception!</title>
 <link rel="stylesheet" href="<?php echo baseUrl();?>rc/system/Style/style.css">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/bootstrap/css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/font-awesome/css/font-awesome.css" media="screen">
 <link rel="shortcut icon" href="<?php echo baseUrl(); ?>rc/system/favicon.png" />
+</link>
 </head>
 <body>
-  <div class="container">
-      <div class="row">
-      <div class="error-template">
-  	    <h1>Oops!</h1>
-  	    <h2>404 Not Found</h2>
-  	    <div class="error-details">
-  		Sorry, an error has occured, Requested page not found!<br>
-  	    </div>
-  	    <div class="error-actions">
-  		<a href="<?php echo baseUrl(); ?>" class="btn btn-primary">
-  		    Take Me Home <i class='fa fa-home'></i> </a>
-  	    </div>
-  	</div>
-      </div>
-  </div>
+    <div class="alert alert-danger">
+      <p class="lead"><?php echo isset($exType) ? $exType : ""; ?> has occured.</p>
+      <p>Message: <?php echo isset($exMessage) ? $exMessage : ""; ?></p>
+      <p><strong>File</strong>: <?php echo isset($exFile) ? $exFile : ""; ?><strong> Line</strong>: <?php echo isset($exLine) ? $exLine : ""; ?></p>
+    </div>
 </body>
 </html>

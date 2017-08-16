@@ -1,17 +1,16 @@
 <?php
 
 /*
-    Biblioteka za upload fajla.
+    File upload library.
 
-    Od podesivih parametara ima :
-    fileTypes - niz podrzanih tipova fajla
-    uploadDirectory - direktorijum za upload fajla
-    maxSize - maksimalna velicina fajla
-    fileToUpload - fajl koji treba uploadovati ($_FILE['name'])
+    Public properties:
+    fileTypes - array of supported file
+    uploadDirectory - file upload directory
+    maxSize - file upload max size
 
-    Javni metodi :
-    upload() - izvrsavanje upload-a, vraca true | false, ako vrati false, u uploadErrors se upisuje greska
-    getErrorMessages() - vraca niz gresaka nastalih pri uploadu
+    Public methods:
+    upload($fileNameAttribute) - returns true/false based on upload's success
+    getErrorMessages() - returns error messages in form of array
 
 */
 
@@ -22,7 +21,7 @@ class FileUpload
     public $fileTypes;
     public $uploadDirectory;
     public $maxSize = 2000000;
-    public $fileName;
+    private $fileName;
     private $fileToUpload;
     private $uploadErrors = array();
 
@@ -38,9 +37,9 @@ class FileUpload
             array_push($this->uploadErrors, "Sorry, file is too large.");
         } elseif (!$this->checkFileType()) {
             array_push($this->uploadErrors, "Sorry, file format is invalid.");
-         } elseif (move_uploaded_file($this->fileToUpload['tmp_name'], $fullPath)) {
+        } elseif (move_uploaded_file($this->fileToUpload['tmp_name'], $fullPath)) {
             return true;
-         }
+        }
 
         return false;
     }
@@ -55,9 +54,9 @@ class FileUpload
         if ($this->fileTypes) {
             foreach ($this->fileTypes as $ft) {
                 foreach ($this->mime_types as $key => $value) {
-                  if ($key == $ft) {
-                      return true;
-                  }
+                    if ($key == $ft) {
+                        return true;
+                    }
                 }
             }
         } else {

@@ -1,2 +1,2 @@
 <?php
-include 'rc/system/routes.php';
+include 'rc/system/bootstrap.php';

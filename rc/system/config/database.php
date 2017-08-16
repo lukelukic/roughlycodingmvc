@@ -1,11 +1,13 @@
 <?php
 
-/*-------MEDOO DATABASE PARAMETERS CONFIGURATION ------*/
+/*
+    Medoo database configuration
+*/
 $dbConfig = [
-	// required
-	'database_type' => 'mysql',
-	'database_name' => 'database',
-	'server' => 'server',
-	'username' => 'username',
-	'password' => 'password',
+    // required
+    'database_type' => 'mysql',
+    'database_name' => '',
+    'server' => '',
+    'username' => '',
+    'password' => '',
 ];

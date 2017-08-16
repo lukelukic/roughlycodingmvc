@@ -1,65 +1,86 @@
 <?php
-/*----------------Ucitavanje konfiguracije ----------*/
-require 'config/config.php';
+/*
+    Handling URL and based on it, loading controller, method and method's arguments
+*/
 
-/*---------------Poziv kontrolera iz foldera gde se kontroleri nalaze------------------*/
+
+
 use rc\Controllers;
+use rc\system\Exceptions as Ex;
 
+/*
+    Loading controller, method, and if exist, method's parameters
+*/
 function callController($controller, $method, $params)
 {
-    $controller = "rc\app\Controllers\\" . ucfirst(strtolower($controller));
-    if (class_exists($controller)) {
-        if (method_exists($controller, $method)) {
-            //Reflection method - objekat pomocu kog moze da se pozove metod sa nizom argumenata, gde ce svaki element niza biti posebna promenljiva
-            $reflectionMethod = new ReflectionMethod($controller, $method);
-            $reflectionMethod->invokeArgs(new $controller(), $params);
+    try {
+        $controller = "rc\app\Controllers\\" . ucfirst(strtolower($controller));
+        if (class_exists($controller)) {
+            $test = new \ReflectionClass($controller);
+            if (!$test->isAbstract()) {
+                if (method_exists($controller, $method)) {
+                    //Dynamically sending arguments to method based on URL args
+                    $reflectionMethod = new ReflectionMethod($controller, $method);
+                    $reflectionMethod->invokeArgs(new $controller(), $params);
+                } else {
+                    throw new Ex\NotFoundException('method ' . $method);
+                }
+            } else {
+                throw new Ex\NotFoundException('controller ' . $controller);
+            }
         } else {
-            header("HTTP/1.1 404 Not Found");
-            include("Errors/404_Method.php");
+            throw new Ex\NotFoundException('controller ' . $controller);
         }
-    } else {
-      header("HTTP/1.1 404 Not Found");
-      include("Errors/404_Controller.php");
+    } catch (Ex\NotFoundException $ex) {
+        $ex->error();
     }
 }
 
-/*---------------------Cepanje URL-a da bi se dobili kontroler i njegova funkcija----------------*/
 /*
-    Za zaobilzenje index strane dodati sledeci kod u .htaccess koji se nalazi u root folderu :
+    Getting controller, method and arguments from URL
+*/
+/*
+    To override index.php, add following in root's .htaccess file:
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php/$1 [L]
 */
 
-$url = $_SERVER['REQUEST_URI'];
-//Ako root sajta nije PUBLIC_HTML, cupanje kontrolera, modela i argumenata
-if ($config['root']) {
-    $root = '/' . $config['root'] . '/';
-    //Izdvajanje root foldera iz REQUEST_URI-a
-    $url = str_replace($root, "", $url);
-}
-//Ako se ide preko indexa, odvajanje indexa
-if (strpos($url, "index.php")!== false) {
-    $url = explode("index.php", $url)[1];
-}
-$url = trim($url, '/');
-$controller_array = explode("/", $url);
-
-$controller = $controller_array[0] ? $controller_array[0] : $config['default_controller'];
-$method = isset($controller_array[1]) ? $controller_array[1] : "index";
-$params = array();
-
-//Za slucaj da su get-om poslati parametri, odvajanje kontrolera i metoda
-$controller = explode("?",$controller)[0];
-$method = explode("?",$method)[0];
-
-//Dohvatanje parametara
-if(count($controller_array)>2) {
-    $params = array();
-    for($i=2,$j=0; $i<count($controller_array); $i++) {
-      $params['param' . $j++] = $controller_array[$i];
+function handleRequest($config)
+{
+    $url = $_SERVER['REQUEST_URI'];
+    //If website is placed inside subdirectory
+    if ($config['root']) {
+        $root = '/' . $config['root'] . '/';
+        //Excluding subdirectory from URl
+        $url = str_replace($root, "", $url);
     }
-}
+    //If index.php is used, excluding it from url
+    if (strpos($url, "index.php")!== false) {
+        $url = explode("index.php", $url)[1];
+    }
+    $url = trim($url, '/');
+    //Now $url looks something like this: controller/method/arg1/arg2
+    $controller_array = explode("/", $url);
+    //If no controller is suplied, default controller is called
+    $controller = $controller_array[0] ? $controller_array[0] : $config['default_controller'];
+    //If no method is suplied, default method (index) is called
+    $method = isset($controller_array[1]) ? $controller_array[1] : "index";
+    $params = array();
 
-callController($controller, $method, $params);
+    //Filtering controller and method's name from possible GET params (controller?param=value)
+    $controller = explode("?", $controller)[0];
+    $method = explode("?", $method)[0];
+
+    //Getting method arguments
+    if (count($controller_array)>2) {
+        $params = array();
+        for ($i=2,$j=0; $i<count($controller_array); $i++) {
+            $params['param' . $j++] = $controller_array[$i];
+        }
+    }
+
+    //Loading controller, method and it's arguments
+    callController($controller, $method, $params);
+}

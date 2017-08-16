@@ -2,12 +2,10 @@
 
 namespace rc\app\Controllers;
 
-
-class Wellcome extends Controller
+class Welcome extends Controller
 {
-
     public function index()
     {
-        $this->loadView('wellcome');
+        $this->loadView('welcome');
     }
 }

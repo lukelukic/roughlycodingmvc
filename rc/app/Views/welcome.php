@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wellcome to roughlyCoding</title>
+  <title>Welcome to roughlyCoding</title>
 <link rel="stylesheet" href="<?php echo baseUrl() ?>rc/system/Style/style.css">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/bootstrap/css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="<?php echo baseUrl(); ?>vendor/components/font-awesome/css/font-awesome.css" media="screen">
@@ -11,7 +11,7 @@
   <div class="container">
       <div class="row">
       <div class="error-template">
-  	    <h1>Wellcome!</h1>
+  	    <h1>Welcome!</h1>
   	    <div class="error-details">
   		You're now using roughlyCoding lightweight PHP framework.<br>
   	    </div>

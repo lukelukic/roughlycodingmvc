@@ -1,11 +1,14 @@
 <?php
-/*-------------Funkcije za laksu manipulaciju zahtevima prosledjenim serveru, NE MENJATI ----------*/
 /*
-    Spisak funkcija  :
-    post($key) - proverava da li je poslata promenljiva post-om, ako jeste, vraca je, ako nije vraca false
-    get($key) - proverava da li je poslata promenljiva get-om, ako jeste, vraca je, ako nije vraca false
-    request($key) - proverava da li je poslata promenljiva postom ili getom, ako jeste, vraca je, ako nije vraca false
+    HTTP requests library.
+    Designed for easier request handling.
+
+    Functions:
+    request($key) - if is set $_REQUEST[$key] returns it, else returns false;
+    post($key) - if is set $_POST[$key] returns it, else returns false;
+    get($key) - if is set $_GET[$key] returns it, else returns false;
 */
+
 function post($key)
 {
     return isset($_POST[$key]) ? $_POST[$key] : false;

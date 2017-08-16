@@ -1,71 +1,93 @@
 <?php
 /*
-    Osnovna klasa kontrolera. Obezbedjuje ucitavanje view-a, librari-a i modela.
-    Nasledjuje je svaki kontroler kome su potrebne ove funkcionalnosti;
+    Base class for all controllers.
+    Provides view, model and library loading.
 */
 namespace rc\system;
 
 use rc\system\Libraries as libs;
 use rc\app\Models as mods;
+use rc\system\Exceptions as Ex;
 
 abstract class MainController
 {
 
-  //Magicni metod koji dinamicki pravi polja pri pozivanju. Od parametara prima ime polje i vrednost za polje
-  public function __set($propName, $value)
-  {
-      $this->$propName = $value;
-  }
+    /*
+        Magic method, dynamically creates properties and sets their values
+    */
+    public function __set($propName, $value)
+    {
+        $this->$propName = $value;
+    }
 
-    //Funkcija za ucitavanje instance specificne biblioteke
+    /*
+        Method for library loading. If file and class do exist,
+        __set() method is called to dynamically create property
+        whitch represents library that is being called upon.
+        Example:
+        $this->loadLibrary("Lib");
+        Creates:
+        public $Lib = new rc\system\Libraries\Lib();
+    */
     public function loadLibrary($library)
     {
-        //Provera da li trazena biblioteka fizicki postoji
-        $file = rootDir() . "rc/system/Libraries/" . $library . ".php";
-        if (file_exists($file)) {
-            //Provera da li postiji trazena klasa
-            $class = "rc\system\Libraries\\" . $library;
-            if (class_exists($class)) {
-                $this->__set($library, new $class());
+        try {
+            $file = rootDir() . "rc/system/Libraries/" . $library . ".php";
+            if (file_exists($file)) {
+                $class = "rc\system\Libraries\\" . $library;
+                if (class_exists($class)) {
+                    $this->__set($library, new $class());
+                } else {
+                    throw new Ex\NotFoundException("library " . $library . ".php");
+                }
             } else {
-                require_once 'Errors/404_Library.php';
+                throw new Ex\NotFoundException("library " . $library . ".php");
             }
-        } else {
-            require_once 'Errors/404_Library.php';
+        } catch (Ex\NotFoundException $ex) {
+            $ex->error();
         }
     }
 
-    //Funkcija za ucitavanje instance specificnog modela
+    //Same as loading library
     public function loadModel($model)
     {
-        //Provera da li trazena biblioteka fizicki postoji
-      $file = rootDir() . "rc/app/Models/" . $model . ".php";
-        if (file_exists($file)) {
-            //Provera da li postiji trazena klasa
-          $class = "rc\app\Models\\" . $model;
-            if (class_exists($class)) {
-                $this->__set($model, new $class());
+        try {
+            $file = rootDir() . "rc/app/Models/" . $model . ".php";
+            if (file_exists($file)) {
+                //Provera da li postiji trazena klasa
+                $class = "rc\app\Models\\" . $model;
+                if (class_exists($class)) {
+                    $this->__set($model, new $class());
+                } else {
+                    throw new Ex\NotFoundException("model " . $model . ".php");
+                }
             } else {
-              require_once 'Errors/404_Model.php';
+                throw new Ex\NotFoundException("model " . $model . ".php");
             }
-        } else {
-          require_once 'Errors/404_Model.php';
+        } catch (Ex\NotFoundException $ex) {
+            $ex->error();
         }
     }
 
-    //Metod u kom se ucitava trazeni fajl, na osnovu imena iz foldera Views
-    //Takodje, podaci mu se prosledjuju u vidu asocijativnog niza, koji se
-    //Razbija i od svakog elementa se dobija nova promenjiva
+    /*
+        View loading. Expects view to load and data which will be sent to it.
+        Data must be associative array.
+        Data is extracted.
+    */
     public function loadView($view, $data=null)
     {
-        $file = rootDir() . 'rc/app/Views/' . $view . '.php';
-        if (file_exists($file)) {
-            if ($data) {
-                extract($data);
+        try {
+            $file = rootDir() . 'rc/app/Views/' . $view . '.php';
+            if (file_exists($file)) {
+                if ($data) {
+                    extract($data);
+                }
+                require_once $file;
+            } else {
+                throw new Ex\NotFoundException("view " . $view . ".php", 1);
             }
-            require_once $file;
-        } else {
-            require_once 'Errors/404_View.php';
+        } catch (Ex\NotFoundException $ex) {
+            $ex->error();
         }
     }
 }

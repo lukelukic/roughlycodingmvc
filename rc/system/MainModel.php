@@ -7,25 +7,43 @@
 
 namespace rc\system;
 
+use rc\system\Exceptions as Ex;
+
 abstract class MainModel
 {
-  //Magicni metod koji dinamicki pravi polja pri pozivanju. Od parametara prima ime polje i vrednost za polje
-  public function __set($propName, $value)
-  {
-      $this->$propName = $value;
-  }
+    /*
+        Magic method, dynamically creates properties and sets their values
+    */
+    public function __set($propName, $value)
+    {
+        $this->$propName = $value;
+    }
 
-    //Funkcija za ucitavanje instance specificne biblioteke
+    /*
+        Method for library loading. If file and class do exist,
+        __set() method is called to dynamically create property
+        whitch represents library that is being called upon.
+        Example:
+        $this->loadLibrary("Lib");
+        Creates:
+        public $Lib = new rc\system\Libraries\Lib();
+    */
     public function loadLibrary($library)
     {
-        //Provera da li trazena biblioteka fizicki postoji
-        $file = rootDir() . "rc/system/Libraries/" . $library . ".php";
-        if (file_exists($file)) {
-            //Provera da li postiji trazena klasa
-            $class = "rc\system\Libraries\\" . $library;
-            if (class_exists($class)) {
-                $this->__set($library, new $class());
+        try {
+            $file = rootDir() . "rc/system/Libraries/" . $library . ".php";
+            if (file_exists($file)) {
+                $class = "rc\system\Libraries\\" . $library;
+                if (class_exists($class)) {
+                    $this->__set($library, new $class());
+                } else {
+                    throw new Ex\NotFoundException($library . ".php");
+                }
+            } else {
+                throw new Ex\NotFoundException($library . ".php");
             }
+        } catch (Ex\NotFoundException $ex) {
+            $ex->error();
         }
     }
 }
