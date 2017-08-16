@@ -35,7 +35,7 @@ define('BASE_URL', $config['base_url']);
 define('INDEX', $config['index']);
 define('ROOT', $config['root']);
 define('APP_NAME', $config['app_name']);
-define("ENV", $config['enviroment']);
+define("ENV", $config['environment']);
 
 
 /*

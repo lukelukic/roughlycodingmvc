@@ -27,5 +27,5 @@ function redirect($path)
 //Returns app's root directory
 function rootDir()
 {
-    return $_SERVER['DOCUMENT_ROOT'] . "/" . ROOT . "/";
+  return __DIR__ . "/../../../";
 }
