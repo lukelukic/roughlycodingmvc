@@ -26,7 +26,7 @@ $config['default_controller'] = "welcome";
 /*
 Set your enviroment; DEV for development, PROD for production
 */
-$config['enviroment'] = DEV;
+$config['environment'] = DEV;
 
 /*
     Helpers to load. All helpers are loaded globaly.
