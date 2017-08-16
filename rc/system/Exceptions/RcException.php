@@ -63,6 +63,6 @@ abstract class RcException extends \Exception
 
     private function mailError($log)
     {
-        echo "Sending mail...";
+        mail(ADMIN_MAIL, APP_NAME . " error", $log);
     }
 }

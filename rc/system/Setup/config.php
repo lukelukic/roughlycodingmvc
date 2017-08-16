@@ -77,7 +77,7 @@ try {
     if (file_exists(rootDir() . "vendor/autoload.php")) {
         require_once rootDir() . "vendor/autoload.php";
     } else {
-        throw new Exceptions\SetupException("Requirements from composer.json failed to load. Please use composer update command within root folder.");
+        throw new Exceptions\SetupException("Vendor autoloader failed to load. Please use composer update command within root folder.");
     }
 } catch (Exceptions\SetupException $e) {
     echo $e->error();
