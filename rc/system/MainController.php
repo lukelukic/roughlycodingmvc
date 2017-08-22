@@ -12,6 +12,24 @@ use rc\system\Exceptions as Ex;
 abstract class MainController
 {
 
+    public function __construct()
+    {
+ 
+    }
+
+    public function render($template, $data = array())
+    {
+                //Creating an twig templating instance
+        $loader = new \Twig_Loader_Filesystem('rc/app/Templates');
+        $twig = new \Twig_Environment($loader, array(
+                'cache' => false
+            )); 
+
+        $twig->addExtension(new SystemTwigExtension());  
+        $template = $twig->loadTemplate($template . ".html.twig");
+        echo $template->render($data);
+    }
+
     /*
         Magic method, dynamically creates properties and sets their values
     */
