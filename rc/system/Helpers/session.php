@@ -40,13 +40,14 @@ function sessKill($key = null)
 }
 
 
-if (isset($_SESSION['removeFlash'])) {
-    session_unset($_SESSION['flash']);
-} else {
-    if (isset($_SESSION['flash'])) {
-        $_SESSION['removeFlash'] = true;
-    }
+if(isset($_SESSION['rmFlash'])) {
+  unset($_SESSION['flash']);
+  unset($_SESSION['rmFlash']);
 }
+if(isset($_SESSION['flash'])) {
+    $_SESSION['rmFlash'] = true;
+}
+
 
 function flash($key, $value = null)
 {
