@@ -5,12 +5,12 @@
     Example : http://somewebsite.com/
     Or localy : http://localhost/somedirectory
 */
-$config['base_url'] = 'http://localhost/diet/';
+$config['base_url'] = 'http://yourwebsite.com';
 
 /*
     Your Application's name (Optional)
 */
-$config['app_name'] = 'Diet tracker';
+$config['app_name'] = '';
 
 /*
     Your index page. If you're using redirection via .htaccess, set it to "".
@@ -39,4 +39,4 @@ $config['time_zone'] = "Europe/Belgrade";
     Example:
     $helpers = array('session', 'whoops');
 */
-$helpers = array('request','session');
+$helpers = array();
