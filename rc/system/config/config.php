@@ -29,6 +29,12 @@ Set your enviroment; DEV for development, PROD for production
 $config['environment'] = DEV;
 
 /*
+Set up your timezone
+*/
+
+$config['time_zone'] = "Europe/Belgrade";
+
+/*
     Helpers to load. All helpers are loaded globaly.
     Example:
     $helpers = array('session', 'whoops');
