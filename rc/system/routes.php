@@ -21,7 +21,11 @@ function callController($controller, $method, $params)
                 if (method_exists($controller, $method)) {
                     //Dynamically sending arguments to method based on URL args
                     $reflectionMethod = new ReflectionMethod($controller, $method);
-                    $reflectionMethod->invokeArgs(new $controller(), $params);
+                    if ($reflectionMethod->isPublic()) {
+                        $reflectionMethod->invokeArgs(new $controller(), $params);
+                    } else {
+                        throw new Ex\NotFoundException('method ' . $method);
+                    }
                 } else {
                     throw new Ex\NotFoundException('method ' . $method);
                 }
