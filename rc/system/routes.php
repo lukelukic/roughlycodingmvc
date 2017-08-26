@@ -73,13 +73,19 @@ function handleRequest($config)
     $controller = explode("?", $controller)[0];
     $method = explode("?", $method)[0];
 
-    //Getting method arguments
+    //Getting method params
     if (count($controller_array)>2) {
         $params = array();
         for ($i=2,$j=0; $i<count($controller_array); $i++) {
             $params['param' . $j++] = $controller_array[$i];
         }
     }
+    //Filtering params
+    $tmp = array();
+    foreach($params as $param) {
+        array_push($tmp, explode("?", $param)[0]);
+    }
+    $params = $tmp;
 
     //Loading controller, method and it's arguments
     callController($controller, $method, $params);
